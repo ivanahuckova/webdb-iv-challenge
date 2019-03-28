@@ -19,12 +19,9 @@ routes.get('/', async (req, res) => {
 routes.get('/:id', async (req, res) => {
   try {
     const specificDish = await db('dishes')
-      .where({ dish_id: req.params.id })
-      .first();
-    const relatedRecipes = await db('recipes')
-      .select('recipe')
-      .where({ dish_id: req.params.id });
-    res.status(200).json({ specificDish, relatedRecipes });
+      .join('recipes', { 'recipes.dish_id': 'dishes.dish_id' })
+      .where({ 'recipes.dish_id': req.params.id });
+    res.status(200).json(specificDish);
   } catch (error) {
     res.status(500).json(error);
   }

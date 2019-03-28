@@ -4,6 +4,15 @@ exports.seed = function(knex, Promise) {
     .del()
     .then(function() {
       // Inserts seed entries
-      return knex('recipes').insert([{ recipe: 'Recipe for crunchy taco', dish_id: 1 }, { recipe: 'Recipe for cauliflower picca', dish_id: 1 }, { recipe: 'Recipe for tofu taco', dish_id: 1 }]);
+      return knex('recipes').insert([
+        { recipe: 'Recipe for crunchy taco', dish_id: 1 },
+        { recipe: 'Recipe for cauliflower pizza', dish_id: 2 },
+        { recipe: 'Recipe for breakfast taco', dish_id: 1 },
+        { recipe: 'Recipe for breakfast pizza', dish_id: 2 },
+        { recipe: 'Recipe for caesar salad', dish_id: 4 },
+        { recipe: 'Recipe for greek salad', dish_id: 4 },
+        { recipe: 'Recipe for red curry', dish_id: 3 },
+        { recipe: 'Recipe for green curry', dish_id: 3 }
+      ]);
     });
 };

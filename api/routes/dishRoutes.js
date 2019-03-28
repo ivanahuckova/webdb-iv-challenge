@@ -1,5 +1,4 @@
 /*
-- `addDish(dish)`: should add the **dish** to the database and return the `id` of the new **dish**.
 - `getDish(id)`: should return the **dish** with the provided `id` and include a list of the related recipes. */
 
 const express = require('express');
@@ -16,6 +15,20 @@ routes.get('/', async (req, res) => {
   try {
     const allDishes = await db('dishes');
     res.status(200).json(allDishes);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+routes.get('/:id', async (req, res) => {
+  try {
+    const specificDish = await db('dishes')
+      .where({ dish_id: req.params.id })
+      .first();
+    const relatedRecipes = await db('recipes')
+      .select('recipe')
+      .where({ dish_id: req.params.id });
+    res.status(200).json({ specificDish, relatedRecipes });
   } catch (error) {
     res.status(500).json(error);
   }

@@ -16,6 +16,20 @@ routes.get('/', async (req, res) => {
   }
 });
 
+routes.get('/:id', async (req, res) => {
+  try {
+    const specificRecipe = await db
+      .select('r.recipe', 'i.ingredient_name', 'i.ingredient_meassurment', 'rwi.ingredient_amount')
+      .from('recipes AS r')
+      .join('recipes_with_ingredients AS rwi', { 'rwi.recipe_id': 'r.recipe_id' })
+      .join('ingredients AS i', { 'i.ingredient_id': 'rwi.ingredient_id' })
+      .where({ 'r.recipe_id': req.params.id });
+    res.status(200).json(specificRecipe);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 // ========= POST ROUTES ========= //
 routes.post('/', async (req, res) => {
   try {

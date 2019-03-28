@@ -1,6 +1,3 @@
-/*
-- `getDish(id)`: should return the **dish** with the provided `id` and include a list of the related recipes. */
-
 const express = require('express');
 const knex = require('knex');
 
@@ -10,7 +7,6 @@ const db = knex(knexConfig);
 const routes = express.Router();
 
 // ========== GET ROUTES ========== //
-
 routes.get('/', async (req, res) => {
   try {
     const allDishes = await db('dishes');

@@ -7,6 +7,6 @@ const server = express();
 server.use(express.json());
 
 server.use('/dishes', dishRoutes);
-// server.use('/recipes', recipeRoutes);
+server.use('/recipes', recipeRoutes);
 
 module.exports = server;
